@@ -11,6 +11,8 @@ import { ScrollSmoother } from "gsap/dist/ScrollSmoother";
 export default function Bootstrap() {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
   const imgRef = useRef(null);
+  const imgContRef = useRef(null);
+  const imgCont2Ref = useRef(null);
   const imagePaths = [
     "/images/Comp01.png",
     "/images/Comp02.png",
@@ -49,10 +51,10 @@ export default function Bootstrap() {
 
     gsap.timeline({
       scrollTrigger: {
-        id:'imgseq',
+        id: "imgseq",
         trigger: ".printer",
         start: "top center",
-        end: "+=2000 center",
+        end: "+=1800 center",
         scrub: 0.2, // Adjust this value for smoother or faster scrubbing
         markers: true,
         onUpdate: (self) => {
@@ -63,46 +65,63 @@ export default function Bootstrap() {
     });
 
     updateImage();
-
   }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
-        id:'printer-pin',
+        id: "printer-pin",
         trigger: ".printer",
         pin: true,
         pinSpacing: false,
-        start: "0 center",
-        end: "+=2000 center",
-        markers:true,
+        start: "top center",
+        end: "bottom top",
+        endTrigger: ".footer-half",
+        markers: true,
       });
 
-      const timeilne = gsap.timeline();
+      const timeline = gsap.timeline();
       ScrollTrigger.create({
-        id:'translate',
-          animation:timeilne,
+          id:'translate',
+          animation:timeline,
           trigger: "#row2",
           start:"top-=200 center",
-          endTrigger:"bottom center",
-          markers:true 
+          end:'+=200 center',
+          markers:true
       })
-      timeilne.fromTo(".printer",{translateY:"0vh"},{translateY:"25vh",duration:'5'})
+      timeline.fromTo(".printer",{translateY:"0vh"},{translateY:"30vh",duration:'5'})
+
+      const clipPathTimeline = gsap.timeline();
+
+      ScrollTrigger.create({
+        id: "clip2",
+        animation: clipPathTimeline,
+        trigger: "#row2",
+        start: "top center",
+        end: "bottom center",
+        scrub: 0,
+        markers: true,
+      });
+
+      clipPathTimeline.fromTo(
+        imgCont2Ref.current,
+        { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" },
+        { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }
+      );
     });
     return () => ctx.revert();
   });
-
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const timeline3 = gsap.timeline();
 
       ScrollTrigger.create({
-        id:'clip',
+        id:'clip1',
         animation: timeline3,
-        trigger: ".printer",
-        start: "0 center",
-        endTrigger: ".footer-half",
+        trigger: ".img-cont",
+        start: "top center",
+        end:'bottom center',
         scrub: 0,
         markers:true
       });
@@ -112,6 +131,24 @@ export default function Bootstrap() {
         { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" },
         { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }
       );
+
+      // const timeline4 = gsap.timeline();
+
+      // ScrollTrigger.create({
+      //   id:'clip2',
+      //   animation: timeline4,
+      //   trigger: ".img-cont2",
+      //   start: "top center",
+      //   end:'bottom center',
+      //   scrub: 0,
+      //   markers:true
+      // });
+
+      // timeline4.fromTo(
+      //   ".img-cont2",
+      //   { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" },
+      //   { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }
+      // );
     });
     return () => ctx.revert();
   }, []);
@@ -126,9 +163,9 @@ export default function Bootstrap() {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <link rel="stylesheet" href="/css/dark.css" />
-      </Head>
+      </Head> */}
       <section className="page-header proj-det">
         <div className="container">
           <div className="row">
@@ -272,7 +309,7 @@ export default function Bootstrap() {
                     data-tooltip-tit="Work image"
                     data-tooltip-sub="Branding"
                   >
-                    <img src="/img/portfolio/works/2.jpg" alt="" id="row1"/>
+                    <img src="/img/portfolio/works/2.jpg" alt="" />
                     <div
                       className="img-cont"
                       style={{
@@ -295,7 +332,7 @@ export default function Bootstrap() {
                     data-tooltip-tit="Work image"
                     data-tooltip-sub="Photography"
                   >
-                    <img src="/img/portfolio/works/3.jpg" alt="" id="row1"/>
+                    <img src="/img/portfolio/works/3.jpg" alt="" />
                     <div
                       className="img-cont"
                       style={{
@@ -318,9 +355,9 @@ export default function Bootstrap() {
                     data-tooltip-tit="Work image"
                     data-tooltip-sub="Design"
                   >
-                    <img src="/img/portfolio/works/6.jpg" alt="" id="row2"/>
+                    <img src="/img/portfolio/works/6.jpg" alt="" id="row2" />
                     <div
-                      className="img-cont"
+                      className="img-cont2"
                       style={{
                         backgroundColor: "gray",
                         height: "100%",
@@ -341,9 +378,9 @@ export default function Bootstrap() {
                     data-tooltip-tit="Work image"
                     data-tooltip-sub="Web Design"
                   >
-                    <img src="/img/portfolio/works/5.jpg" alt="" id="row2"/>
+                    <img src="/img/portfolio/works/5.jpg" alt="" />
                     <div
-                      className="img-cont"
+                      className="img-cont2"
                       style={{
                         backgroundColor: "gray",
                         height: "100%",
@@ -364,9 +401,9 @@ export default function Bootstrap() {
                     data-tooltip-tit="Work image"
                     data-tooltip-sub="Photography"
                   >
-                    <img src="/img/portfolio/works/4.jpg" alt="" id="row2"/>
+                    <img src="/img/portfolio/works/4.jpg" alt="" />
                     <div
-                      className="img-cont"
+                      className="img-cont2"
                       style={{
                         backgroundColor: "gray",
                         height: "100%",
