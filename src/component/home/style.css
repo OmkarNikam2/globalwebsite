@@ -1,0 +1,43 @@
+.main-section {
+    height: 600vh;
+}
+
+.tets{
+    height: 100vh;
+    width: 100vw;
+    background-color: yellow;
+}
+.img{
+    position: relative;
+}
+.img-data{
+    position: absolute;
+    top: 10vh;
+    left: 20vw;
+    z-index: 3;
+}
+.img-data1{
+    position: absolute;
+    top: 10vh;
+    left: 40vw;
+    z-index: 2;
+}
+.img-data2{
+    position: absolute;
+    top: 10vh;
+    left: 30vw;
+    z-index: 2;
+}
+.img-data3{
+    position: absolute;
+    top: 10vh;
+    left: 30vw;
+    z-index: 1;
+}
+.img-data4{
+    position: absolute;
+    top: 10vh;
+    left: 20vw;
+    z-index: 1;
+}
+

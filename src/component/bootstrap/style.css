@@ -1,0 +1,5 @@
+.printer{
+    width: 100vw;
+    position: sticky;
+    z-index: 90;
+}

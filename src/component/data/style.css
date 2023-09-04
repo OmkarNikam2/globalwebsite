@@ -1,0 +1,41 @@
+.main-section1 {
+    height: 700vh;
+}
+.test-data{
+    height: 100vh;
+}
+
+.image{
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+}
+.image1{
+    position: fixed;
+    top: 10vh;
+    left: 60vw;
+}
+.img{
+    width: 100%;
+    height: 10%;
+}
+
+.img1{
+    width: 100%;
+    height: 10%;
+}
+
+h1{
+    text-align: center;
+    font-size: 10rem;
+    /* z-index: 1; */
+    /* position: relative; */
+    mix-blend-mode: exclusion;
+}
+h3{
+    text-align: center;
+    font-size: 10rem;
+    /* z-index: 1; */
+    /* position: relative; */
+    mix-blend-mode: exclusion;
+}
