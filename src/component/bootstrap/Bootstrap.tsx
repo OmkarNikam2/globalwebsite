@@ -91,23 +91,27 @@ export default function Bootstrap() {
       })
       timeline.fromTo(".printer",{translateY:"0vh"},{translateY:"30vh",duration:'5'})
 
-      const clipPathTimeline = gsap.timeline();
+      const timeline3 = gsap.timeline();
 
       ScrollTrigger.create({
-        id: "clip2",
-        animation: clipPathTimeline,
-        trigger: "#row2",
-        start: "top center",
-        end: "bottom center",
+        id: 'clip2',
+        animation: timeline3,
+        trigger: ".printer",
+        start: "top center",  // Adjust this starting point as needed
+        end: "bottom center", // Adjust this ending point as needed
         scrub: 0,
         markers: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const printerPosition = progress * 100; // Adjust this value based on your printer's translation distance
+          // Apply clip-path animation to .img-cont2 based on printer position
+          if (printerPosition >= 0 && printerPosition <= 30) {
+            gsap.to(".img-cont2", { clipPath: `polygon(0 0, 100% 0, 100% ${100 - printerPosition}%, 0% ${100 - printerPosition}%)`, ease: "none" });
+          } else {
+            gsap.to(".img-cont2", { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", ease: "none" });
+          }
+        },
       });
-
-      clipPathTimeline.fromTo(
-        imgCont2Ref.current,
-        { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" },
-        { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }
-      );
     });
     return () => ctx.revert();
   });
